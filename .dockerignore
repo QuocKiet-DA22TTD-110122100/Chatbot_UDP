@@ -1,0 +1,12 @@
+# Docker ignore file
+*.md
+*.txt
+scripts/
+docker-compose*.yml
+Dockerfile
+.git/
+.gitignore
+README.md
+run-demo.md
+
+

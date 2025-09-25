@@ -1,0 +1,51 @@
+services:
+  # UDP Chat Server
+  udp-server:
+    build: .
+    container_name: udp-chat-server
+    ports:
+      - "5000:5000/udp"
+    networks:
+      - udp-chat-network
+    command: ["java", "chatudp.ChatServer"]
+    restart: unless-stopped
+
+  # UDP Chat Client 1 (Alice)
+  udp-client-alice:
+    build: .
+    container_name: udp-chat-alice
+    depends_on:
+      - udp-server
+    networks:
+      - udp-chat-network
+    command: ["java", "chatudp.ChatClient", "udp-server", "5000"]
+    stdin_open: true
+    tty: true
+
+  # UDP Chat Client 2 (Bob)
+  udp-client-bob:
+    build: .
+    container_name: udp-chat-bob
+    depends_on:
+      - udp-server
+    networks:
+      - udp-chat-network
+    command: ["java", "chatudp.ChatClient", "udp-server", "5000"]
+    stdin_open: true
+    tty: true
+
+  # UDP Chat Client 3 (Charlie)
+  udp-client-charlie:
+    build: .
+    container_name: udp-chat-charlie
+    depends_on:
+      - udp-server
+    networks:
+      - udp-chat-network
+    command: ["java", "chatudp.ChatClient", "udp-server", "5000"]
+    stdin_open: true
+    tty: true
+
+networks:
+  udp-chat-network:
+    driver: bridge

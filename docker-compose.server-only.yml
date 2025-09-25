@@ -1,0 +1,15 @@
+services:
+  # UDP Chat Server only
+  udp-server:
+    build: .
+    container_name: udp-chat-server
+    ports:
+      - "5000:5000/udp"
+    networks:
+      - udp-chat-network
+    command: ["java", "chatudp.ChatServer"]
+    restart: unless-stopped
+
+networks:
+  udp-chat-network:
+    driver: bridge
